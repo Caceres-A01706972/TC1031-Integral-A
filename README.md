@@ -1,13 +1,30 @@
+<h1>CORRECCIONES</h1>
+<li>SICT0302B   -> Selecciona un algoritmo de ordenamiento adecuado al problema</li>
+
+
 <h1>Sistema de Nadadores</h1>
 
 Este proyecto se basa en un sistema en el que se tiene una lista de nadadores y sus tiempos, el programa se encarga de ordenar a los nadadores por orden de velocidad. Y los asigna a un carril dependiendo de su velocidad. 
 De la misma manera este programa puede encontrar si algun nadador tiene alguna marca tecnica, es decir algun tiempo que sea marca para poder ir a alguna competencia internacional. 
 
 <h2>Analisis de Complejidad</h2>
-<li>bubbleSort</li>
+<li>insertion()</li>
+El Analisis de Complejidad de este algoritmo seria de O(n) porque dependiendo de que tan grande sea la lista va a recorrer por cada nodo hasta llegar al nodo final para poder agregar el siguiente nodo. Sin embargo, si el elemento es el primero en agregarse, es decir, se usa el insertionFirst() ese seria de complejidad O(1).
+<br></br>
 
-Esta funcion tiene una complejidad de O(n^2) ya que el algoritmo itera sobre dos ciclos, el de afuera que va O(n) iteraciones y el de afuera que va O(n) iteraciones. 
+<li>search()</li>
+Para este algoritmo, el analisis de complejidad es de O(n) ya que no sabemos en que index esta el valor que buscamos en la lista, asi que se tendria que recorrer por cada elemento de la lista checando si el p->value es igual al valor que se busca. 
+<br></br>
 
-<li>busquedaBinaria</li> 
+<li>update()</li>
+Este algoritmo tiene un Analisis de Complejidad de O(n) ya que recorre los elementos de la lista hasta que llegue al index especificado para cambiar el valor de ese elemento.
+<br></br>
 
-Esta funcino tiene una complejidad de O(log n) porque cada vez se va partiendo el arreglo en mitad y checando hasta que se parte en un punto en donde solo queda el valor que se busca. 
+<li>deleteAt()</li>
+El Analisis de Complejidad de este algoritmo es de O(n) ya que se recorre los elementos de la lista hasta llegar al index especificado y ahi hacer el delete. 
+
+<li>insertionSort()</li>
+El Analisis de Complejidad de este algoritmo es de O(n) ya que recorre durante toda la lista. 
+
+<li>sortedInsert()</li>
+El Analisis de Complejidad de este algoritmo es de O(n) ya que recorre durante toda la lista. 
