@@ -1,6 +1,7 @@
 /*
 Ricardo Andres Caceres Villibord A01706972
-Archivo con Sort y Busqueda
+Archivo con algortimos para implementar estructura lineal
+y para implementar ordenamiento.
 
 */
 
@@ -13,63 +14,247 @@ Archivo con Sort y Busqueda
 
 using namespace std;
 
-void bubbleSort(int a[], int n){
-    for(int i = 1; i <= n; i++){
-        for(int j = n; j >= i; j--){
-            if(a[j-1] > a[j]){
-                int aux = a[j-1];
-                a[j-1] = a[j];
-                a[j] = aux;
-            }
-        }
-    }
-}
-
-void laneAssignment(int a[], int aux[]){
-    aux[3] = a[0];
-    aux[4] = a[1];
-    aux[2] = a[2];
-    aux[5] = a[3];
-    aux[1] = a[4];
-    aux[6] = a[5];
-    aux[0] = a[6];
-    aux[7] = a[7];
-}
 
 
-int busquedaBinaria_aux(int tiempos[], int low, int high, int marca) {
-	int mid;
+template <class T> class List;
 
-	if (low <= high) {
-		mid = (high + low) / 2;
-		if (marca == tiempos[mid]) {
-            cout<<"Encontrado en la posicion: #";
-			return mid;
-		} else if (marca < tiempos[mid]) {
-			return busquedaBinaria_aux(tiempos, low, mid - 1, marca);
-		} else if (marca > tiempos[mid]) {
-			return busquedaBinaria_aux(tiempos, mid + 1, high, marca);
-		}
-	}
-    cout<<"Ningun nadador presente tiene la marca"<<endl;
-	return -1;
-}
+template <class T> 
+class Link{
+    private:
+        Link(T);
+        Link(T, Link<T>*);
+        Link(const Link<T>&);
 
-int busquedaBinaria(int tiempos[], int size, int marca) {
-	return busquedaBinaria_aux(tiempos, 0, size - 1, marca);
-}
+        T       value;
+        Link<T> *next;
 
-
-
-
-/*
-class Nombres{
-    public:
-        string mmnombres[8] = {"Jorge", "Irving", "Ricardo", "Adrian", " Manuel", "Carlos", "Camilo", "Ernesto"};
-
+        friend class List<T>;
+        //friend class Sorts<T>;
+      
 };
 
 
-float tiempos[] = {26.11, 24.55, 24.89, 27.12, 23.13, 24.11, 25.21, 26.77};
+template <class T>
+Link<T>::Link(T val) : value(val), next(0) {}
 
-*/
+template <class T>
+Link<T>::Link(T val, Link* nxt) : value(val), next(nxt) {}
+
+template <class T>
+Link<T>::Link(const Link<T> &source) : value(source.value), next(source.next) {}
+
+
+template <class T>
+class List{
+    public:
+        List();
+        List(const List<T>&);
+
+        void insertion(T);
+        void insertFirst(T);
+        int search(T) const;
+        void update(int, T);
+        T deleteFirst();
+        T deleteAt(int);
+        std::string toString() const;
+        bool empty() const;
+
+        void insertionSort(Link<T> *headref);
+        void sortedInsert(Link<T> *newnode);
+        Link<T> *head;
+    private:
+        //Link<T> *head;
+        Link<T> *sorted;
+        int size;
+
+    
+};
+
+
+
+template <class T>
+bool List<T>::empty() const {
+	return (head == 0);
+}
+
+template <class T>
+List<T>::List() : head(0), size(0) {}
+
+template <class T>
+void List<T>::insertionSort(Link<T> *headref){
+
+    if(empty()){
+        std::cout<<"Todavia no hay ningun tiempo en la lista"<<std::endl;
+    } else{
+        sorted = NULL;
+        Link<T> *current = headref;
+
+        while(current != NULL){
+            Link<T> *next = current->next;
+            sortedInsert(current);
+            current = next;
+        }
+        head = sorted;
+        std::cout<<"La lista de tiempos ha sido ordenada correctamente!"<<std::endl;
+    }
+}
+
+template <class T>
+void List<T>::sortedInsert(Link<T> *newnode){
+    if (sorted == NULL || sorted->value >= newnode->value){
+        newnode ->next = sorted;
+        sorted = newnode;
+    } else{
+        Link<T> *current = sorted;
+        while (current->next != NULL && current->next->value < newnode->value){
+            current = current->next;
+        }
+        newnode->next = current->next;
+        current->next = newnode;
+    }
+}
+
+template <class T>
+void List<T>::insertFirst(T val){
+	Link<T> *newLink;
+
+	newLink = new Link<T>(val);
+	if (newLink == 0) {
+		std::cout<<"OutOfMemory";
+	}
+	newLink->next = head;
+	head = newLink;
+	size++;
+}
+
+
+template <class T>
+void List<T>::insertion(T val){
+    Link<T> *newLink, *p;
+    
+
+    newLink = new Link<T>(val);
+    if (newLink == 0){
+        std::cout<<"OutOfMemory";
+    }
+    
+
+    if (empty()){
+        insertFirst(val);
+        return;
+    }
+
+
+    p = head;
+    while (p->next != 0){
+        p = p->next;
+    }
+
+    newLink->next = 0;
+    p->next = newLink;
+    size++;
+}
+
+template <class T>
+int List<T>::search(T val) const{
+    Link<T> *p;
+
+    p = head;
+    int index = 0;
+    while (p != 0){
+        if(p->value == val){
+            return 1;
+        }
+        p = p->next;
+        index++;
+    }
+    return -1;
+} 
+
+
+template <class T>
+void List<T>::update(int index, T val){
+    Link<T> *p;
+
+    p = head;
+    int pos = 0;
+    while(pos != index){
+        p = p->next;
+        pos++;
+    }
+    p->value = val;
+
+    std::cout<<"Lista Actualizada Correctamente!"<<std::endl;
+}
+
+template <class T>
+T List<T>::deleteFirst(){
+	T val;
+	Link<T> *p;
+
+	if (empty()) {
+		std::cout<<"NoSuchElement";
+	}
+
+	p = head;
+
+	head = p->next;
+	val = p->value;
+
+	delete p;
+	size--;
+
+	return val;
+}
+
+
+template <class T>
+T List<T>::deleteAt(int index){
+    Link<T> *p, *q;
+    T val;
+    int pos = 0;
+    
+    if (index < 0 || index >= size) {
+        std::cout << "Invalid index";
+    }
+    
+    if(index==0){
+        return deleteFirst();
+    }
+
+    p = head;
+    q = 0;
+    while (pos != index) {
+        q = p;
+        p = p->next;
+        pos++;
+    }
+    val = p->value;
+    q->next = p->next;
+    
+    delete p;
+    std::cout<<"Tiempo Eliminado Correctamente!"<<std::endl;
+    size--;
+    
+}
+
+
+template <class T>
+std::string List<T>::toString() const {
+	std::stringstream aux;
+	Link<T> *p;
+
+	p = head;
+	aux << "[";
+	while (p != 0) {
+		aux << p->value;
+		if (p->next != 0) {
+			aux << ", ";
+		}
+		p = p->next;
+	}
+	aux << "]";
+	return aux.str();
+}
+
+
