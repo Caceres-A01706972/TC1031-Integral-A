@@ -22,9 +22,11 @@ Este algoritmo tiene un Analisis de Complejidad de O(n) ya que recorre los eleme
 
 <li>deleteAt()</li>
 El Analisis de Complejidad de este algoritmo es de O(n) ya que se recorre los elementos de la lista hasta llegar al index especificado y ahi hacer el delete. 
+<br></br>
 
 <li>insertionSort()</li>
 El Analisis de Complejidad de este algoritmo es de O(n) ya que recorre durante toda la lista. 
+<br></br>
 
 <li>sortedInsert()</li>
 El Analisis de Complejidad de este algoritmo es de O(n) ya que recorre durante toda la lista. 
