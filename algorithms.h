@@ -163,12 +163,15 @@ int List<T>::search(T val) const{
     int index = 0;
     while (p != 0){
         if(p->value == val){
-            return 1;
+            //return 1;
+            return index;
         }
         p = p->next;
         index++;
     }
-    return -1;
+    //return -1;
+    std::cout<<"El tiempo ingresado no se encuentra en la lista";
+    
 } 
 
 
@@ -256,5 +259,7 @@ std::string List<T>::toString() const {
 	aux << "]";
 	return aux.str();
 }
+
+
 
 
