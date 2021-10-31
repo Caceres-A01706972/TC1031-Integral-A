@@ -21,6 +21,7 @@ using namespace std;
 int main(){
 
     List<int> h1;
+    BST<int> edades;
 
     int resp;
 
@@ -32,7 +33,10 @@ int main(){
         cout<<"3. Agregar tiempos a la lista"<<endl;
         cout<<"4. Mostrar mi Lista"<<endl;
         cout<<"5. Actualizar o Borrar uno de los tiempos"<<endl;
-        cout<<"6. SALIR"<<endl;
+        cout<<"6. Agregar un Nadador"<<endl;
+        cout<<"7. Checar si hay algun Nadador de cierta edad"<<endl;
+        cout<<"8. Imprimir todas las edades de los Nadadores"<<endl;
+        cout<<"9. SALIR"<<endl;
         cin>>resp;
     
         if(resp == 1){
@@ -101,6 +105,20 @@ int main(){
 
             }
         } else if(resp == 6){
+            std::cout<<"Ingresa la edad del nadador: "<<std::endl;
+            std::cin>>resp;
+            edades.add(resp);
+
+        } else if(resp == 7){
+            std::cout<<"Ingresa la edad que quieres buscar: "<<std::endl;
+            std::cin>>resp;
+            edades.find(resp);
+
+        } else if(resp == 8){
+            std::cout<<"Imprimiendo todas las edades de los Nadadores: "<<std::endl;
+            std::cout<<edades.inorder()<<std::endl;
+
+        } else if(resp == 9){
             break;
         }
     }  
