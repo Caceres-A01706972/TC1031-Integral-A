@@ -1,5 +1,7 @@
 <h1>CORRECCIONES</h1>
 <li>SICT0302B   -> Selecciona un algoritmo de ordenamiento adecuado al problema</li>
+<li>SICT0302B   ->Selecciona y usa una estructura lineal adecuada al problema</li>
+
 
 
 <h1>Sistema de Nadadores</h1>
