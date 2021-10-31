@@ -262,4 +262,266 @@ std::string List<T>::toString() const {
 
 
 
+template <class T> class BST;
 
+template <class T>
+class Node {
+    private:
+        T value;
+        Node *left, *right;
+
+        Node<T>* succesor();
+
+    public:
+        Node(T);
+        Node(T, Node<T>*, Node<T>*);
+        void add(T);
+        bool find(T);
+        void remove(T);
+        void removeChilds();
+        void inorder(std::stringstream&) const;
+        void preorder(std::stringstream&) const;
+
+        friend class BST<T>;
+};
+
+template <class T>
+Node<T>::Node(T val) : value(val), left(0), right(0) {}
+
+template <class T>
+Node<T>::Node(T val, Node<T> *le, Node<T> *ri)
+	: value(val), left(le), right(ri) {}
+
+template <class T>
+void Node<T>::add(T val) {
+	if (val < value) {
+		if (left != NULL) {
+			left->add(val);
+		} else {
+			left = new Node<T>(val);
+		}
+	} else {
+		if (right != NULL) {
+			right->add(val);
+		} else {
+			right = new Node<T>(val);
+		}
+	}
+}
+
+template <class T>
+bool Node<T>::find(T val) {
+	if (val == value) {
+        std::cout<<"Si hay nadadores de "<<val<<" anios"<<std::endl;
+		return true;
+	} else if (val < value) {
+		return (left != NULL && left->find(val));
+	} else if (val > value) {
+		return (right != NULL && right->find(val));
+	}
+}
+
+template <class T>
+Node<T>* Node<T>::succesor() {
+	Node<T> *le, *ri;
+
+	le = left;
+	ri = right;
+
+	if (right->left == NULL) {
+		right = right->right;
+		ri->right = NULL;
+		return ri;
+	}
+
+	Node<T> *parent, *child;
+	parent = right;
+	child = right->left;
+	while (child->left != NULL) {
+		parent = child;
+		child = child->left;
+	}
+	parent->left = child->right;
+	child->right = NULL;
+	return child;
+}
+
+
+template <class T>
+void Node<T>::remove(T val) {
+	Node<T> * succ, *old;
+
+	if (val < value) {
+		if (left != NULL) {
+			if (left->value == val) {
+				old = left;
+				if(old->left != NULL && old->right != NULL){
+					succ = left->succesor();
+					if (succ != NULL) {
+						succ->left = old->left;
+						succ->right = old->right;
+					}
+					left = succ;
+				} else if (old->right != NULL){ // solo hijo der
+						left = old->right;
+				} else if (old->left != NULL){ // solo hijo izq
+						left = old->left;
+				} else {
+						left = NULL;
+				}
+				delete old;
+			} else {
+				left->remove(val);
+			}
+		}
+	} else if (val > value) {
+		if (right != NULL) {
+			if (right->value == val) {
+				old = right;
+				if(old->left != NULL && old->right != NULL){ // dos hijos sucesor
+					succ = right->succesor();
+					if (succ != NULL) {
+						succ->left = old->left;
+						succ->right = old->right;
+					}
+					right = succ;
+				} else if (old->right != NULL){ // solo hijo der
+					right = old->right;
+				} else if (old->left != NULL){ // solo hijo izq
+					right = old->left;
+				} else {  // hoja
+					right = NULL;
+				}
+					delete old;
+			} else {
+				right->remove(val);
+			}
+		}
+	}
+}
+
+template <class T>
+void Node<T>::removeChilds() {
+	if (left != NULL) {
+		left->removeChilds();
+		delete left;
+		left = NULL;
+	}
+	if (right != NULL) {
+		right->removeChilds();
+		delete right;
+		right = NULL;
+	}
+}
+
+template <class T>
+void Node<T>::inorder(std::stringstream &aux) const {
+	if (left != 0) {
+		left->inorder(aux);
+	}
+	if (aux.tellp() != 1) {
+		aux << " ";
+	}
+	aux << value;
+	if (right != 0) {
+		right->inorder(aux);
+	}
+}
+
+
+template <class T>
+class BST {
+    private:
+        Node<T> *root;
+
+    public:
+        BST();
+        ~BST();
+        bool empty() const;
+        void add(T);
+        bool find(T) const;
+        void remove(T);
+        void removeAll();
+        std::string inorder() const;
+        std::string preorder() const;
+
+        friend class List<T>;
+};
+
+template <class T>
+BST<T>::BST() : root(0) {}
+
+template <class T>
+BST<T>::~BST() {
+	removeAll();
+}
+
+template <class T>
+bool BST<T>::empty() const {
+	return (root == 0);
+}
+
+template<class T>
+void BST<T>::add(T val) {
+	if (root != 0) {
+		if (!root->find(val)) {
+			root->add(val);
+		}
+	} else {
+		root = new Node<T>(val);
+	}
+}
+
+template <class T>
+void BST<T>::remove(T val) {
+	if (root != 0) {
+		if (val == root->value) {
+			Node<T> *succ = root->succesor();
+			if (succ != 0) {
+				succ->left = root->left;
+				succ->right = root->right;
+			}
+			delete root;
+			root = succ;
+		} else {
+			root->remove(val);
+		}
+	}
+}
+
+template <class T>
+void BST<T>::removeAll() {
+	if (root != 0) {
+		root->removeChilds();
+	}
+	delete root;
+	root = 0;
+}
+
+template <class T>
+bool BST<T>::find(T val) const {
+	if (root != 0) {
+		return root->find(val);
+	} else {
+        std::cout<<"No hay nadadores de "<<val<<" anios"<<std::endl;
+		return false;
+	}
+}
+
+template <class T>
+std::string BST<T>::inorder() const {
+	std::stringstream aux;
+
+    if(empty()){
+        aux << "No hay ningun Nadador :(";
+    }
+
+	
+	if (!empty()) {
+        aux << "[";
+		root->inorder(aux);
+        aux << "]";
+	}
+	 
+	return aux.str();
+}
