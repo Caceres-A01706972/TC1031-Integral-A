@@ -32,3 +32,15 @@ El Analisis de Complejidad de este algoritmo es de O(n) ya que recorre durante t
 
 <li>sortedInsert()</li>
 El Analisis de Complejidad de este algoritmo es de O(n) ya que recorre durante toda la lista. 
+<br></br>
+
+<li>add()</li>
+El Analisis de Complejidad de este algoritmo es de O(n) ya que debe de recorrer todo el arbol para llegar hasta abajo y insertar el nuevo nodo en su lugar correspondiente dependiendo si es mayor o menor.
+<br></br>
+
+<li>find()</li>
+El Analisis de Complejidad de este algoritmo es de O(n) ya que recorre todo el arbol buscando si val==value.
+<br></br>
+
+<li>inorder()</li>
+El Analisis de Complejidad de este algoritmo es de O(n) ya que se tiene que visitar cada nodo del arbol. 
