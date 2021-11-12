@@ -3,6 +3,7 @@
 
 <li>SICT0302B   ->Selecciona y usa una estructura lineal adecuada al problema <br><li>El Programa ya actualiza y borra tiempos de manera correcta en la lista</li></br></li>
 
+<li>SICT0301B   -> Presenta Casos de Prueba correctos y completos para todas las funciones y procedimientos del programa <br><li>Se agrego al repositorio un archivo titulado "casos_prueba.cpp"</li></br>
 
 
 <h1>Sistema de Nadadores</h1>
