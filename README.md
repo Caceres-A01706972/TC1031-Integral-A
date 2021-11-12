@@ -1,6 +1,7 @@
 <h1>CORRECCIONES</h1>
-<li>SICT0302B   -> Selecciona un algoritmo de ordenamiento adecuado al problema</li>
-<li>SICT0302B   ->Selecciona y usa una estructura lineal adecuada al problema</li>
+<li>SICT0302B   -> Selecciona un algoritmo de ordenamiento adecuado al problema <br><li>El Programa ya compila y ordena los tiempos de manera correcta</li></br></li>
+
+<li>SICT0302B   ->Selecciona y usa una estructura lineal adecuada al problema <br><li>El Programa ya actualiza y borra tiempos de manera correcta en la lista</li></br></li>
 
 
 
