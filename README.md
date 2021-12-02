@@ -1,6 +1,6 @@
 <h1>CORRECCIONES</h1>
 <li>SICT0302B Toma decisiones</li><br>
-El programa ya compila sin errores.
+El programa ya compila sin errores. <br>
 -> Selecciona un algoritmo de ordenamiento adecuado al problema. <br>
 -> Selecciona y usa una estructura lineal adecuada al problema. <br>
 -> El Programa ya compila y ordena los tiempos de manera correcta. <br>
