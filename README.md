@@ -1,11 +1,11 @@
 <h1>CORRECCIONES</h1>
-<li>SICT0302B</li><br>
+<li>SICT0302B Toma decisiones</li><br>
 El programa ya compila sin errores.
 -> Selecciona un algoritmo de ordenamiento adecuado al problema. <br>
 -> Selecciona y usa una estructura lineal adecuada al problema. <br>
 -> El Programa ya compila y ordena los tiempos de manera correcta. <br>
-
-<li>SICT0301B</li>
+<br>
+<li>SICT0301B Evalúa componentes</li>
 -> Presenta Casos de Prueba correctos y completos para todas las funciones y procedimientos esenciales del programa. Para eso se agrego al repositorio un archivo titulado "casos_prueba.cpp".</br>
 
 <h1>Sistema de Nadadores</h1>
